@@ -17,6 +17,7 @@ var MasterbarLoggedIn = require( 'layout/masterbar/logged-in' ),
 	translator = require( 'lib/translator-jumpstart' ),
 	TranslatorInvitation = require( './community-translator/invitation' ),
 	TranslatorLauncher = require( './community-translator/launcher' ),
+	PollInvitation = require( './poll-invitation' ),
 	EmailVerificationNotice = require( 'components/email-verification/email-verification-notice' ),
 	Welcome = require( 'my-sites/welcome/welcome' ),
 	WelcomeMessage = require( 'nux-welcome/welcome-message' ),
@@ -113,7 +114,8 @@ Layout = React.createClass( {
 		var translatorInvitation = this.props.translatorInvitation,
 			showInvitation,
 			showWelcome,
-			newestSite;
+			newestSite,
+			disablePollInvitation;
 
 		if ( ! this.props.user ) {
 			return null;
@@ -124,6 +126,7 @@ Layout = React.createClass( {
 		showInvitation = ! showWelcome &&
 				translatorInvitation.isPending() &&
 				translatorInvitation.isValidSection( this.props.section.name );
+		disablePollInvitation = showWelcome || showInvitation;
 
 		return (
 			<span>
@@ -131,6 +134,7 @@ Layout = React.createClass( {
 					<WelcomeMessage welcomeSite={ newestSite } />
 				</Welcome>
 				<TranslatorInvitation isVisible={ showInvitation } />
+				<PollInvitation disabled={ disablePollInvitation } />
 			</span>
 		);
 	},
