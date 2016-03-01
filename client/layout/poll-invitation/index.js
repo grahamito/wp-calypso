@@ -81,7 +81,7 @@ export default React.createClass( {
 	},
 
 	acceptButton: function() {
-		let url = 'https://polldaddy.com';
+		let url = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		recordEvent( 'Clicked Accept Button' );
 		window.open( url );
 	// invitationUtils.activate();
