@@ -44,10 +44,10 @@ export default React.createClass( {
 		// invitationUtils.recordInvitationDisplayed();  // TODO
 
 		let subComponents = {
-			title: this.translate( 'How are we doing in Brazil?' ),
-			acceptButtonText: this.translate( 'Take poll' ),
-			dismissButtonText: this.translate( 'No thanks' ),
-			content: this.translate( "We'd love to ask you a few questions about WordPress.com in Brazil." )
+			title: 'Como está o nosso trabalho no Brasil?', // no translate(), pt-br only
+			acceptButtonText: 'Responder a pesquisa',       // no translate(), pt-br only
+			dismissButtonText: 'Não, obrigado',             // no translate(), pt-br only
+			content: 'Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.' // no translate(), pt-br only
 		};
 
 		return (
