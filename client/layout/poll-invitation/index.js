@@ -56,6 +56,7 @@ export default React.createClass( {
 					<h3 className="translator-invitation__title">{ subComponents.title }</h3>
 
 					<div className="translator-invitation__secondary-content">
+						<Gridicon icon="globe" size={ 48 } className="translator-invitation__content-icon" />
 						<p className="translator-invitation__intro">
 							{ subComponents.content }
 						</p>

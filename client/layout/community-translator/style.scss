@@ -44,6 +44,11 @@
 	margin: 0 0 12px;
 }
 
+.translator-invitation__content-icon {
+	visibility: hidden;
+	position: absolute;
+}
+
 .translator-invitation__primary-content {
 	font-size: 16px;
 	line-height: 24px;
@@ -114,5 +119,13 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+	}
+
+	.translator-invitation__content-icon {
+		visibility: visible;
+		position: relative;
+		width: 48px;
+		margin-right: 12px;
+		color: $blue-medium;
 	}
 }
