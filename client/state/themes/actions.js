@@ -77,17 +77,18 @@ export function fetchCurrentTheme( site ) {
 	};
 }
 
-export function fetchThemeDetails( id ) {
+export function fetchThemeDetails( id, callback = function() {} ) {
 	return dispatch => {
-		const callback = ( error, data ) => {
+		wpcom.undocumented().themeDetails( id, ( error, data ) => {
 			debug( 'Received theme details', data );
 			if ( error ) {
+				debug( `Error fetching theme ${ id } details: `, error.message || error );
 				dispatch( receiveServerError( error ) );
 			} else {
 				dispatch( receiveThemeDetails( data ) );
+				callback();
 			}
-		};
-		wpcom.undocumented().themeDetails( id, callback );
+		} );
 	}
 }
 
