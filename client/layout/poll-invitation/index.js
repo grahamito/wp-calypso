@@ -11,9 +11,9 @@ let debug = require( 'debug' )( 'calypso:poll-invitation' );
 /**
  * Internal dependencies
  */
-// import { ga as googleAnalytics } from 'analytics'; // TODO
+import { ga as googleAnalytics } from 'analytics';
 import Gridicon from 'components/gridicon';
-// import { tracks } from 'analytics'; // TODO
+import { tracks } from 'analytics';
 // import preferencesStore from 'lib/preferences/store';  TODO
 // import preferencesActions from 'lib/preferences/actions'; // TODO
 
@@ -41,7 +41,7 @@ export default React.createClass( {
 			return null;
 		}
 
-		// invitationUtils.recordInvitationDisplayed();  // TODO
+		recordEvent( 'displayed' );
 
 		let subComponents = {
 			title: 'Como está o nosso trabalho no Brasil?', // no translate(), pt-br only
@@ -103,6 +103,7 @@ export default React.createClass( {
 	permanentlyDisableInvitation: function() {
 		this.dismiss();
 		debug( 'permanently disabling' );
+		recordEvent( 'dismissed' );
 		// preferencesActions.set( 'pt-br-polled', true );
 		// invitationPending = false;
 		// invitationUtils.emitChange();
@@ -115,8 +116,8 @@ function shouldDisplay() {
 }
 
 function recordEvent( eventAction ) {
-	// googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
+	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
 	let tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
 	debug( 'recording event ' + tracksEventName );
-	// tracks.recordEvent( tracksEventName );
+	tracks.recordEvent( tracksEventName );
 }
