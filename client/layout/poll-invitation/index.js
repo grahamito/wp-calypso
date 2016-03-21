@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import snakeCase from 'lodash/snakeCase';
-import store from 'store';
 let debug = require( 'debug' )( 'calypso:poll-invitation' );
 
 /**
@@ -14,10 +13,10 @@ import { ga as googleAnalytics } from 'analytics';
 import Gridicon from 'components/gridicon';
 import { tracks } from 'analytics';
 import config from 'config';
-// import preferencesStore from 'lib/preferences/store';  TODO
-// import preferencesActions from 'lib/preferences/actions'; // TODO
+import preferencesActions from 'lib/preferences/actions';
 
-// TODO: add a key so we can automate the "have I been seen" check.
+const _preferencesKey = 'dismissedBrazilianSurvey';
+
 export default React.createClass( {
 	displayName: 'PollInvitation',
 
@@ -32,19 +31,37 @@ export default React.createClass( {
 	},
 	getDefaultProps: function() {
 		return {
-			isVisible: shouldDisplay()
+			isVisible: true
 		};
 	},
 
 	render: function() {
-		if ( ( ! this.props.isVisible ) || this.state.disabled ) {
+		if ( this.state.disabled ) {
+			debug( 'hiding: has been disabled' );
+			return null;
+		}
+
+		if ( ! this.props.isVisible ) {
+			debug( 'hiding: hidden by parent' );
 			return null;
 		}
 
 		if ( ! config.isEnabled( 'brazil-survey-invitation' ) ) {
-			debug( 'not enabled in config' );
+			debug( 'hiding: not enabled in config' );
 			return null;
 		}
+
+		if ( ! this.props.preferences ) {
+			debug( 'hiding: user preferences not loaded' );
+			return null;
+		}
+
+		if ( this.props.preferences[ _preferencesKey ] ) {
+			debug( 'hiding: user has dismissed invitation' );
+			return null;
+		}
+
+		// TODO: check section
 
 		recordEvent( 'displayed' );
 
@@ -90,34 +107,25 @@ export default React.createClass( {
 		let url = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		recordEvent( 'Clicked Accept Button' );
 		window.open( url );
-	// invitationUtils.activate();
-		this.permanentlyDisableInvitation();
+		this.dismiss();
 	},
 
 	dismissButton: function() {
 		recordEvent( 'Clicked Dismiss Button' );
-		this.permanentlyDisableInvitation();
+		this.dismiss();
 	},
 
 	dismiss: function() {
 		debug( 'dismiss' );
-		store.set( 'interactedWithPollInvitiation', true );
 		this.state.disabled = true;
-	},
-
-	permanentlyDisableInvitation: function() {
-		this.dismiss();
-		debug( 'permanently disabling' );
 		recordEvent( 'dismissed' );
-		// preferencesActions.set( 'pt-br-polled', true );
-		// invitationPending = false;
-		// invitationUtils.emitChange();
+		this.state.disabled = true;
+		preferencesActions.set( _preferencesKey, true );
 	}
 } );
 
 function shouldDisplay() {
-	return 'pt-br' === user.get().localeSlug &&
-		! store.get( 'interactedWithPollInvitiation' );
+	return 'pt-br' === user.get().localeSlug;
 }
 
 function recordEvent( eventAction ) {
