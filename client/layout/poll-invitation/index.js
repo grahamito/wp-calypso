@@ -4,13 +4,12 @@
 import React from 'react';
 import snakeCase from 'lodash/snakeCase';
 import store from 'store';
-
-let user = require( 'lib/user' )();
 let debug = require( 'debug' )( 'calypso:poll-invitation' );
 
 /**
  * Internal dependencies
  */
+let user = require( 'lib/user' )();
 import { ga as googleAnalytics } from 'analytics';
 import Gridicon from 'components/gridicon';
 import { tracks } from 'analytics';
