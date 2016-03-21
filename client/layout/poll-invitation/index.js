@@ -14,6 +14,7 @@ let debug = require( 'debug' )( 'calypso:poll-invitation' );
 import { ga as googleAnalytics } from 'analytics';
 import Gridicon from 'components/gridicon';
 import { tracks } from 'analytics';
+import config from 'config';
 // import preferencesStore from 'lib/preferences/store';  TODO
 // import preferencesActions from 'lib/preferences/actions'; // TODO
 
@@ -38,6 +39,11 @@ export default React.createClass( {
 
 	render: function() {
 		if ( ( ! this.props.isVisible ) || this.state.disabled ) {
+			return null;
+		}
+
+		if ( ! config.isEnabled( 'brazil-survey-invitation' ) ) {
+			debug( 'not enabled in config' );
 			return null;
 		}
 
