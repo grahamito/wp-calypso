@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import snakeCase from 'lodash/snakeCase';
+import includes from 'lodash/includes';
 let debug = require( 'debug' )( 'calypso:poll-invitation' );
 
 /**
@@ -16,6 +17,7 @@ import config from 'config';
 import preferencesActions from 'lib/preferences/actions';
 
 const _preferencesKey = 'dismissedBrazilianSurvey';
+const _sectionWhiteList = [ 'reader', 'sites' ];
 
 export default React.createClass( {
 	displayName: 'PollInvitation',
@@ -29,6 +31,7 @@ export default React.createClass( {
 			disabled: ! shouldDisplay()
 		};
 	},
+
 	getDefaultProps: function() {
 		return {
 			isVisible: true
@@ -61,7 +64,10 @@ export default React.createClass( {
 			return null;
 		}
 
-		// TODO: check section
+		if ( ! includes( _sectionWhiteList, this.props.section.name ) ) {
+			debug( 'hiding: invalid section', this.props.section.name );
+			return null;
+		}
 
 		recordEvent( 'displayed' );
 
