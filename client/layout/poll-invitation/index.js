@@ -4,6 +4,7 @@
 import React from 'react';
 import snakeCase from 'lodash/snakeCase';
 import includes from 'lodash/includes';
+import memoize from 'lodash/memoize';
 let debug = require( 'debug' )( 'calypso:poll-invitation' );
 
 /**
@@ -18,6 +19,19 @@ import preferencesActions from 'lib/preferences/actions';
 
 const _preferencesKey = 'dismissedBrazilianSurvey';
 const _sectionWhiteList = [ 'reader', 'sites' ];
+
+function shouldDisplay() {
+	return 'pt-br' === user.get().localeSlug;
+}
+
+function recordEvent( eventAction ) {
+	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
+	let tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
+	debug( 'recording event ' + tracksEventName );
+	tracks.recordEvent( tracksEventName );
+}
+
+let recordEventOnce = memoize( recordEvent );
 
 export default React.createClass( {
 	displayName: 'PollInvitation',
@@ -69,7 +83,7 @@ export default React.createClass( {
 			return null;
 		}
 
-		recordEvent( 'displayed' );
+		recordEventOnce( 'Displayed' );
 
 		let subComponents = {
 			title: 'Como está o nosso trabalho no Brasil?', // no translate(), pt-br only
@@ -129,14 +143,3 @@ export default React.createClass( {
 		preferencesActions.set( _preferencesKey, true );
 	}
 } );
-
-function shouldDisplay() {
-	return 'pt-br' === user.get().localeSlug;
-}
-
-function recordEvent( eventAction ) {
-	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
-	let tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
-	debug( 'recording event ' + tracksEventName );
-	tracks.recordEvent( tracksEventName );
-}
