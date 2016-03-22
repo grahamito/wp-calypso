@@ -5,18 +5,23 @@ import React from 'react';
 import snakeCase from 'lodash/snakeCase';
 import includes from 'lodash/includes';
 import memoize from 'lodash/memoize';
-let debug = require( 'debug' )( 'calypso:poll-invitation' );
+import debugModule from 'debug';
 
 /**
  * Internal dependencies
  */
-let user = require( 'lib/user' )();
+import userModule from 'lib/user';
 import { ga as googleAnalytics } from 'analytics';
 import Gridicon from 'components/gridicon';
 import { tracks } from 'analytics';
 import config from 'config';
 import preferencesActions from 'lib/preferences/actions';
 
+/**
+ * Module variables
+ */
+const debug = debugModule( 'calypso:poll-invitation' );
+const user = userModule();
 const _preferencesKey = 'dismissedBrazilianSurvey';
 const _sectionWhiteList = [ 'reader', 'sites' ];
 
