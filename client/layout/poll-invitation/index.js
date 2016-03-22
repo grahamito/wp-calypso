@@ -131,9 +131,8 @@ export default React.createClass( {
 
 	dismiss: function() {
 		debug( 'dismiss' );
-		this.state.disabled = true;
+		this.setState( { disabled: true } );
 		recordEvent( 'dismissed' );
-		this.state.disabled = true;
 		preferencesActions.set( _preferencesKey, true );
 	}
 } );
