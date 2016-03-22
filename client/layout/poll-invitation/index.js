@@ -31,12 +31,12 @@ function shouldDisplay() {
 
 function recordEvent( eventAction ) {
 	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
-	let tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
+	const tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
 	debug( 'recording event ' + tracksEventName );
 	tracks.recordEvent( tracksEventName );
 }
 
-let recordEventOnce = memoize( recordEvent );
+const recordEventOnce = memoize( recordEvent );
 
 export default React.createClass( {
 	displayName: 'PollInvitation',
@@ -118,7 +118,7 @@ export default React.createClass( {
 	},
 
 	acceptButton: function() {
-		let url = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
+		const url = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		recordEvent( 'Clicked Accept Button' );
 		window.open( url );
 		this.dismiss();
