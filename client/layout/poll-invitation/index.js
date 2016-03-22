@@ -22,7 +22,7 @@ import preferencesActions from 'lib/preferences/actions';
  */
 const debug = debugModule( 'calypso:poll-invitation' );
 const user = userModule();
-const _preferencesKey = 'dismissedBrazilianSurvey';
+const _dismissedPreferenceKey = 'dismissedBrazilianSurvey';
 const _sectionWhiteList = [ 'reader', 'sites' ];
 
 function shouldDisplay() {
@@ -78,7 +78,7 @@ export default React.createClass( {
 			return null;
 		}
 
-		if ( this.props.preferences[ _preferencesKey ] ) {
+		if ( this.props.preferences[ _dismissedPreferenceKey ] ) {
 			debug( 'hiding: user has dismissed invitation' );
 			return null;
 		}
@@ -133,6 +133,6 @@ export default React.createClass( {
 		debug( 'dismiss' );
 		this.setState( { disabled: true } );
 		recordEvent( 'dismissed' );
-		preferencesActions.set( _preferencesKey, true );
+		preferencesActions.set( _dismissedPreferenceKey, true );
 	}
 } );
