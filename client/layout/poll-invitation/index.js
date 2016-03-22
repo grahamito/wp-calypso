@@ -90,36 +90,25 @@ export default React.createClass( {
 
 		recordEventOnce( 'Displayed' );
 
-		let subComponents = {
-			title: 'Como está o nosso trabalho no Brasil?', // no translate(), pt-br only
-			acceptButtonText: 'Responder a pesquisa',       // no translate(), pt-br only
-			dismissButtonText: 'Não, obrigado',             // no translate(), pt-br only
-			content: 'Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.' // no translate(), pt-br only
-		};
-
 		return (
 			<div className="translator-invitation welcome-message">
 				<div className="translator-invitation__primary-content">
-					<h3 className="translator-invitation__title">{ subComponents.title }</h3>
+					<h3 className="translator-invitation__title">Como está o nosso trabalho no Brasil?</h3> { /* no translate(), pt-br only */ }
 
 					<div className="translator-invitation__secondary-content">
 						<Gridicon icon="globe" size={ 48 } className="translator-invitation__content-icon" />
 						<p className="translator-invitation__intro">
-							{ subComponents.content }
+							Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.{ /* no translate(), pt-br only */ }
 						</p>
 						<div className="translator-invitation__actions">
 							<button
 								type="button"
 								className="button is-primary"
-								onClick={ this.acceptButton }>
-								{ subComponents.acceptButtonText }
-							</button>
+								onClick={ this.acceptButton }>Responder a pesquisa</button> { /* no translate(), pt-br only */ }
 							<button
 								type="button"
 								className="button"
-								onClick={ this.dismissButton }>
-								{ subComponents.dismissButtonText }
-							</button>
+								onClick={ this.dismissButton }>Não, obrigado</button> { /* no translate(), pt-br only */ }
 						</div>
 					</div>
 				</div>
