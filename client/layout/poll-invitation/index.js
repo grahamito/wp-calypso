@@ -30,7 +30,7 @@ function shouldDisplay() {
 }
 
 function recordEvent( eventAction ) {
-	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
+	googleAnalytics.recordEvent( 'Brazil Survey Invitation', eventAction );
 	const tracksEventName = 'calypso_poll_invitation_' + snakeCase( eventAction );
 	debug( 'recording event ' + tracksEventName );
 	tracks.recordEvent( tracksEventName );
