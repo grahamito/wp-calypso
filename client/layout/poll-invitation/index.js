@@ -4,7 +4,7 @@
 import React from 'react';
 import snakeCase from 'lodash/snakeCase';
 import includes from 'lodash/includes';
-import memoize from 'lodash/memoize';
+import once from 'lodash/once';
 import debugModule from 'debug';
 
 /**
@@ -36,7 +36,7 @@ function recordEvent( eventAction ) {
 	tracks.recordEvent( tracksEventName );
 }
 
-const recordEventOnce = memoize( recordEvent );
+const recordDisplayedEventOnce = once( () => recordEvent( 'Displayed' ) );
 
 export default React.createClass( {
 	displayName: 'PollInvitation',
@@ -88,7 +88,7 @@ export default React.createClass( {
 			return null;
 		}
 
-		recordEventOnce( 'Displayed' );
+		recordDisplayedEventOnce();
 
 		return (
 			<div className="translator-invitation welcome-message">
