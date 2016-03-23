@@ -8,40 +8,27 @@ import { connect } from 'react-redux';
  * Internal dependencies
  */
 import QueryPosts from 'components/data/query-posts';
-import { getSelectedSite } from 'state/ui/selectors';
-import { getSitePostsForQueryIgnoringPage } from 'state/posts/selectors';
-import PostTypePost from './post';
+import { getSelectedSiteId } from 'state/ui/selectors';
+import PostTypeListPosts from './posts';
 
-function PostTypeList( { type, siteId, posts } ) {
+function PostTypeList( { type, siteId } ) {
+	const query = { type };
+
 	return (
 		<div className="post-type-list">
-			<QueryPosts
-				siteId={ siteId }
-				query={ { type } } />
-			<ul className="post-type-list__posts">
-				{ posts && posts.map( ( post ) => (
-					<li key={ post.global_ID }>
-						<PostTypePost globalId={ post.global_ID } />
-					</li>
-				) ) }
-			</ul>
+			<QueryPosts siteId={ siteId } query={ query } />
+			<PostTypeListPosts query={ query } />
 		</div>
 	);
 }
 
 PostTypeList.propTypes = {
 	type: PropTypes.string.isRequired,
-	siteId: PropTypes.number,
-	posts: PropTypes.array
+	siteId: PropTypes.number
 };
 
-export default connect( ( state, ownProps ) => {
-	const site = getSelectedSite( state );
-	const siteId = site ? site.ID : null;
-	const { type } = ownProps;
-
+export default connect( ( state ) => {
 	return {
-		siteId,
-		posts: getSitePostsForQueryIgnoringPage( state, siteId, { type } )
+		siteId: getSelectedSiteId( state )
 	};
 } )( PostTypeList );
