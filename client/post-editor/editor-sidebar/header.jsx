@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash/get';
-import { translate } from 'lib/mixins/i18n';
+import localize from 'lib/mixins/i18n/localize';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ import PostCountsData from 'components/data/post-counts-data';
 import QueryPostTypes from 'components/data/query-post-types';
 import { decodeEntities } from 'lib/formatting';
 
-function EditorSidebarHeader( { typeSlug, type, siteId, showDrafts, toggleDrafts, allPostsUrl, toggleSidebar } ) {
+function EditorSidebarHeader( { translate, typeSlug, type, siteId, showDrafts, toggleDrafts, allPostsUrl, toggleSidebar } ) {
 	const isCustomPostType = ( 'post' !== typeSlug && 'page' !== typeSlug );
 	const className = classnames( 'editor-sidebar__header', {
 		'is-drafts-visible': showDrafts,
@@ -98,4 +98,4 @@ export default connect(
 			toggleDrafts: toggleEditorDraftsVisible
 		}, dispatch );
 	}
-)( EditorSidebarHeader );
+)( localize( EditorSidebarHeader ) );
