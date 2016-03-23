@@ -21,6 +21,7 @@ import Gridicon from 'components/gridicon';
 import DraftsButton from 'post-editor/drafts-button';
 import PostCountsData from 'components/data/post-counts-data';
 import QueryPostTypes from 'components/data/query-post-types';
+import { decodeEntities } from 'lib/formatting';
 
 function EditorSidebarHeader( { typeSlug, type, siteId, showDrafts, toggleDrafts, allPostsUrl, toggleSidebar } ) {
 	const isCustomPostType = ( 'post' !== typeSlug && 'page' !== typeSlug );
@@ -30,10 +31,14 @@ function EditorSidebarHeader( { typeSlug, type, siteId, showDrafts, toggleDrafts
 	} );
 
 	let allPostsLabel;
-	switch ( typeSlug ) {
-		case 'post': allPostsLabel = translate( 'Posts' ); break;
-		case 'page': allPostsLabel = translate( 'Pages' ); break;
-		default: allPostsLabel = get( type, 'labels.menu_name' ) || translate( 'Loading…' );
+	if ( 'post' === typeSlug ) {
+		allPostsLabel = translate( 'Posts' );
+	} else if ( 'page' === typeSlug ) {
+		allPostsLabel = translate( 'Pages' );
+	} else if ( type ) {
+		allPostsLabel = decodeEntities( type.labels.menu_name );
+	} else {
+		allPostsLabel = translate( 'Loading…' );
 	}
 
 	return (
