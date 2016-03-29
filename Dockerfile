@@ -32,7 +32,7 @@ ENV     NODE_PATH /calypso/server:/calypso/client
 
 # Install base npm packages to take advantage of the docker cache
 COPY    ./package.json /calypso/package.json
-RUN     npm install --production
+COPY    ./npm-shrinkwrap.json /calypso/npm-shrinkwrap.json
 
 COPY     . /calypso
 
