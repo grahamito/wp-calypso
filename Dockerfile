@@ -23,7 +23,10 @@ RUN     wget https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x6
           ln -sf /usr/local/node/bin/node /usr/local/bin/ && \
           rm node-v$NODE_VERSION-linux-x64.tar.gz
 
-RUN     mkdir /usr/local/node/etc && cp /usr/local/etc/npmrc /usr/local/node/etc/npmrc
+# npmrc is created by env-config.sh. For local testing, an empty one is generated
+RUN     touch /usr/local/etc/npmrc && \
+          mkdir /usr/local/node/etc && \
+          cp /usr/local/etc/npmrc /usr/local/node/etc/npmrc
 
 ENV     NODE_PATH /calypso/server:/calypso/client
 
