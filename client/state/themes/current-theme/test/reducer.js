@@ -12,7 +12,7 @@ import {
 	SERIALIZE,
 	DESERIALIZE,
 	SERVER_DESERIALIZE
-} from 'state/action-types';
+} from '../../../action-types';
 import reducer, { initialState } from '../reducer';
 
 describe( 'current-theme reducer', () => {
