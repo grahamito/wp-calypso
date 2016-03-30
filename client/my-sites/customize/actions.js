@@ -12,12 +12,18 @@ import wpcom from 'lib/wp';
 import CartActions from 'lib/upgrades/actions';
 import ThemeHelper from '../themes/helpers';
 import { themeItem } from 'lib/cart-values/cart-items';
+import {
+	CUSTOMIZER_CLOSED,
+	CUSTOMIZER_RECEIVED_MUSE_CUSTOMIZATIONS,
+	THEME_ACTIVATED_WITH_CUSTOMIZER,
+	THEME_PURCHASE_WITH_CUSTOMIZER
+} from 'state/action-types';
 
 var CustomizeActions = {
 	fetchMuseCustomizations: function( site ) {
 		wpcom.undocumented().site( site ).getMuseCustomizations( function( error, data ) {
 			Dispatcher.handleViewAction( {
-				type: 'RECEIVED_MUSE_CUSTOMIZATIONS',
+				type: CUSTOMIZER_RECEIVED_MUSE_CUSTOMIZATIONS,
 				error,
 				data
 			} );
@@ -33,7 +39,7 @@ var CustomizeActions = {
 			page( '/checkout/' + site.slug );
 
 			Dispatcher.handleViewAction( {
-				type: 'THEME_PURCHASE_WITH_CUSTOMIZER',
+				type: THEME_PURCHASE_WITH_CUSTOMIZER,
 				id: id,
 				site: site
 			} );
@@ -52,7 +58,7 @@ var CustomizeActions = {
 		themeActivated( id, site, 'customizer' );
 
 		Dispatcher.handleViewAction( {
-			type: 'THEME_ACTIVATED_WITH_CUSTOMIZER',
+			type: THEME_ACTIVATED_WITH_CUSTOMIZER,
 			id: id,
 			site: site
 		} );
@@ -64,7 +70,7 @@ var CustomizeActions = {
 		}
 
 		Dispatcher.handleViewAction( {
-			type: 'CLOSED_CUSTOMIZER',
+			type: CUSTOMIZER_CLOSED,
 			previousPath: previousPath
 		} );
 	}

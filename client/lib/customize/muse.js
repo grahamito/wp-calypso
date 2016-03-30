@@ -8,13 +8,14 @@ import get from 'lodash/get'
  * Internal dependencies
  */
 import { createReducerStore } from 'lib/store';
+import { CUSTOMIZER_RECEIVED_MUSE_CUSTOMIZATIONS } from 'state/action-types';
 
 const debug = debugFactory( 'calypso:customize:muse' );
 const initialState = { customizations: [] };
 
 export default createReducerStore( ( state, { action } ) => {
 	switch ( action.type ) {
-		case 'RECEIVED_MUSE_CUSTOMIZATIONS':
+		case CUSTOMIZER_RECEIVED_MUSE_CUSTOMIZATIONS:
 			const data = get( action, 'data.customizations', [] );
 			debug( `saving ${data.length} customizations` );
 			return Object.assign( {}, state, { customizations: data } );
