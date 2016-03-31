@@ -278,6 +278,11 @@
 		"site-roles": {
 			"test": [ "store" ]
 		},
+		"stats": {
+			"stats-list": {
+				"test": [ "index", "test-stats-parser" ]
+			}
+		},
 		"store": {
 			"test": [ "index" ]
 		},
