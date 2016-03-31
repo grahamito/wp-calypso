@@ -45,6 +45,7 @@ const DesignMenu = React.createClass( {
 	},
 
 	componentWillMount() {
+		this.props.actions.clearCustomizations( this.props.selectedSite.ID );
 		// Fetch the preview
 		this.props.actions.fetchPreviewMarkup( this.props.selectedSite.ID, '' );
 	},
