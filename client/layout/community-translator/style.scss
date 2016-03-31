@@ -76,12 +76,10 @@
 
 .translator-invitation__actions {
 	flex-grow: 100%;
-	margin-left: 2%;
 	> .button:last-of-type {
 		margin-right: 0;
 	}
 }
-
 
 @include breakpoint( ">660px" ) {
 	.translator-invitation {
@@ -97,22 +95,29 @@
 		.button {
 			display: inline-block;
 			width: auto;
+			margin-bottom: 0px;
 			padding: 7px 24px;
 			margin-right: 24px;
 		}
 	}
 
 	.translator-invitation__intro {
-		flex: 0 1 auto
+		flex: 0 1 auto;
+		margin-bottom: 0px;
 	}
 
 	.translator-invitation__actions {
-		flex: 0 0 auto
+		flex: 0 0 auto;
+		margin-left: 2%;
 	}
 
 	.translator-invitation__secondary-content {
+		align-items: center;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+		margin-bottom: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
 	}
 }
