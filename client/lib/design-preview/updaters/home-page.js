@@ -1,15 +1,17 @@
+import assign from 'lodash/assign';
+
 let previousCustomizations = {};
 
 export default function homePage( previewDoc, customizations, fetchPreviewMarkup ) {
 	if ( hasHomePageChanged( previousCustomizations, customizations ) ) {
 		fetchPreviewMarkup();
 	}
-	previousCustomizations = customizations;
+	previousCustomizations.homePage = assign( {}, customizations.homePage );
 }
 
 function hasHomePageChanged( prevCustomizations, customizations ) {
 	if ( ! customizations.homePage ) {
 		return false;
 	}
-	return ( prevCustomizations.homePage !== customizations.homePage );
+	return ( JSON.stringify( prevCustomizations.homePage ) !== JSON.stringify( customizations.homePage ) );
 }
