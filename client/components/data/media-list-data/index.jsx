@@ -1,21 +1,17 @@
 /**
  * External dependencies
  */
-import React from 'react';
-import assign from 'lodash/assign';
-import isEqual from 'lodash/isEqual';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+var React = require( 'react' ),
+	assign = require( 'lodash/assign' ),
+	isEqual = require( 'lodash/isEqual' );
 
 /**
  * Internal dependencies
  */
-import MediaActions from 'lib/media/actions';
-import MediaListStore from 'lib/media/list-store';
-import passToChildren from 'lib/react-pass-to-children';
-import utils from './utils';
-import { isRequestingMediaStorage } from 'state/sites/media-storage/selectors';
-import { requestMediaStorage } from 'state/sites/media-storage/actions';
+var MediaActions = require( 'lib/media/actions' ),
+	MediaListStore = require( 'lib/media/list-store' ),
+	passToChildren = require( 'lib/react-pass-to-children' ),
+	utils = require( './utils' );
 
 function getStateData( siteId ) {
 	return {
@@ -25,14 +21,13 @@ function getStateData( siteId ) {
 	};
 }
 
-const MediaListData = React.createClass( {
+module.exports = React.createClass( {
+	displayName: 'MediaListData',
 
 	propTypes: {
 		siteId: React.PropTypes.number.isRequired,
 		filter: React.PropTypes.string,
-		search: React.PropTypes.string,
-		requestingMediaStorage: React.PropTypes.bool,
-		requestMediaStorage: React.PropTypes.func
+		search: React.PropTypes.string
 	},
 
 	getInitialState: function() {
@@ -79,11 +74,7 @@ const MediaListData = React.createClass( {
 	},
 
 	updateStateData: function() {
-		const state = getStateData( this.props.siteId );
-		this.setState( state );
-		if ( ! this.props.requestingMediaStorage && this.props.siteId ) {
-			this.props.requestMediaStorage( this.props.siteId );
-		}
+		this.setState( getStateData( this.props.siteId ) );
 	},
 
 	render: function() {
@@ -92,16 +83,3 @@ const MediaListData = React.createClass( {
 		} ) );
 	}
 } );
-
-export default connect(
-	( state, ownProps ) => {
-		return {
-			requestingMediaStorage: isRequestingMediaStorage( state, ownProps.siteId )
-		};
-	},
-	( dispatch ) => {
-		return bindActionCreators( {
-			requestMediaStorage
-		}, dispatch );
-	}
-)( MediaListData );
