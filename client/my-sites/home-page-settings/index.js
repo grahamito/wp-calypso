@@ -37,10 +37,18 @@ export default React.createClass( {
 		};
 	},
 
+	createHomePage() {
+		// TODO: trigger an action that creates a new page and then triggers another
+		// action that sets customizations.homePage.pageOnFrontId
+	},
+
 	handleChangeIsPageOnFront( isPageOnFront ) {
 		const pageOnFrontId = this.state.pageOnFrontId;
 		this.setState( { isPageOnFront } );
 		this.props.onChange( { isPageOnFront, pageOnFrontId } );
+		if ( isPageOnFront && ! pageOnFrontId ) {
+			this.createHomePage();
+		}
 	},
 
 	handleChangePageOnFront( post ) {
@@ -60,16 +68,28 @@ export default React.createClass( {
 		if ( ! this.state.isPageOnFront ) {
 			return '';
 		}
+		if ( ! this.state.pageOnFrontId ) {
+			// Placeholder while a default home page is created
+			return (
+				<Card compact className="home-page-settings__post-selector">
+					<div className="home-page-settings__post-selector__header">{ this.translate( 'Your home page:' ) }</div>
+					<span>{ this.translate( 'Home' ) }</span>
+				</Card>
+			);
+		}
 		return (
-			<PostSelector
-				siteId={ this.props.site.ID }
-				type="page"
-				status="publish"
-				orderBy="date"
-				order="DESC"
-				selected={ this.state.pageOnFrontId }
-				onChange={ this.handleChangePageOnFront }
-			/>
+			<Card compact className="home-page-settings__post-selector">
+				<div className="home-page-settings__post-selector__header">{ this.translate( 'Your home page:' ) }</div>
+				<PostSelector
+					siteId={ this.props.site.ID }
+					type="page"
+					status="publish"
+					orderBy="date"
+					order="DESC"
+					selected={ this.state.pageOnFrontId }
+					onChange={ this.handleChangePageOnFront }
+				/>
+			</Card>
 		);
 	},
 
