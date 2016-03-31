@@ -75,13 +75,14 @@ module.exports = React.createClass( {
 		} );
 	},
 
-	handleClickMappingLink: function() {
+	handleClickMappingLink: function( event ) {
+		this.props.onClickMapping( event );
+
 		analytics.tracks.recordEvent( 'calypso_example_domain_suggestions_mapping_link_click' );
 	},
 
 	render: function() {
 		let examples, mappingInformation;
-		const mappingUrl = this.props.path + '/mapping';
 
 		if ( ! isEmpty( this.props.products ) ) {
 			mappingInformation = this.translate(
@@ -92,7 +93,7 @@ module.exports = React.createClass( {
 					},
 
 					components: {
-						mappingLink: <a onClick={ this.handleClickMappingLink } href={ mappingUrl } />,
+						mappingLink: <a onClick={ this.handleClickMappingLink } href="#" />,
 						strong: <strong />
 					}
 				}
