@@ -2,24 +2,17 @@
  * External dependencies
  */
 import React from 'react';
-import page from 'page';
 import noop from 'lodash/noop';
+import classNames from 'classnames';
 
 /**
  * Internal dependencies
  */
-import Button from 'components/button';
 import Card from 'components/card';
 import PostSelector from 'my-sites/post-selector';
 import FormFieldset from 'components/forms/form-fieldset';
 import FormLegend from 'components/forms/form-legend';
 import FormLabel from 'components/forms/form-label';
-import FormRadio from 'components/forms/form-radio';
-
-function getSiteSlug( url ) {
-	var slug = url.replace( /^https?:\/\//, '' );
-	return slug.replace( /\//g, '::' );
-}
 
 export default React.createClass( {
 	propTypes: {
@@ -44,8 +37,7 @@ export default React.createClass( {
 		};
 	},
 
-	handleChangeIsPageOnFront( event ) {
-		const isPageOnFront = event.target.value === 'page';
+	handleChangeIsPageOnFront( isPageOnFront ) {
 		const pageOnFrontId = this.state.pageOnFrontId;
 		this.setState( { isPageOnFront } );
 		this.props.onChange( { isPageOnFront, pageOnFrontId } );
@@ -56,36 +48,54 @@ export default React.createClass( {
 		this.props.onChange( { isPageOnFront: true, pageOnFrontId: post.ID } );
 	},
 
-	getNewPageUrl() {
-		return `/page/${ getSiteSlug( this.props.site.URL ) }`;
+	handleSetPageOnFront() {
+		this.handleChangeIsPageOnFront( true );
 	},
 
-	handleNewPage() {
-		page( this.getNewPageUrl() );
+	handleSetBlogOnFront() {
+		this.handleChangeIsPageOnFront( false );
+	},
+
+	renderPostSelector() {
+		if ( ! this.state.isPageOnFront ) {
+			return '';
+		}
+		return (
+			<PostSelector
+				siteId={ this.props.site.ID }
+				type="page"
+				status="publish"
+				orderBy="date"
+				order="DESC"
+				selected={ this.state.pageOnFrontId }
+				onChange={ this.handleChangePageOnFront }
+			/>
+		);
 	},
 
 	render() {
+		const blogButtonClassNames = classNames( 'radio-button-card', {
+			'is-selected': ! this.state.isPageOnFront
+		} );
+		const pageButtonClassNames = classNames( 'radio-button-card', {
+			'is-selected': this.state.isPageOnFront
+		} );
 		return (
 			<Card compact className="home-page-settings">
 				<FormFieldset>
 					<FormLegend>{ this.translate( 'Your home page displays:' ) }</FormLegend>
 					<FormLabel>
-						<FormRadio value="blog" checked={ ! this.state.isPageOnFront } onChange={ this.handleChangeIsPageOnFront } />
-						<span>{ this.translate( 'A list of your latest posts' ) }</span>
+						<Card compact className={ blogButtonClassNames } onClick={ this.handleSetBlogOnFront } >
+							<span className="radio-button-card__header">{ this.translate( 'Latest Posts' ) }</span>
+							<span className="radio-button-card__body">{ this.translate( 'A list of your latest posts, displayed newest to oldest.' ) }</span>
+						</Card>
 					</FormLabel>
-
 					<FormLabel>
-						<FormRadio value="page" checked={ this.state.isPageOnFront } onChange={ this.handleChangeIsPageOnFront } />
-						<span>{ this.translate( 'A page from this list:' ) }</span>
-							<PostSelector
-								siteId={ this.props.site.ID }
-								type="page"
-								status="publish"
-								orderBy="date"
-								order="DESC"
-								selected={ this.state.pageOnFrontId }
-								onChange={ this.handleChangePageOnFront } />
-							<Button onClick={ this.handleNewPage } >{ this.translate( 'Create a new page' ) }</Button>
+						<Card compact className={ pageButtonClassNames } onClick={ this.handleSetPageOnFront } >
+							<span className="radio-button-card__header">{ this.translate( 'A Page' ) }</span>
+							<span className="radio-button-card__body">{ this.translate( 'An editable home page for your website.' ) }</span>
+						</Card>
+						{ this.renderPostSelector() }
 					</FormLabel>
 				</FormFieldset>
 			</Card>
