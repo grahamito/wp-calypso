@@ -102,12 +102,12 @@ export default React.createClass( {
 						<div className="translator-invitation__actions">
 							<button
 								type="button"
-								className="button is-primary"
-								onClick={ this.acceptButton }>Responder a pesquisa</button> { /* no translate(), pt-br only */ }
-							<button
-								type="button"
 								className="button"
 								onClick={ this.dismissButton }>Não, obrigado</button> { /* no translate(), pt-br only */ }
+							<button
+								type="button"
+								className="button is-primary"
+								onClick={ this.acceptButton }>Responder a pesquisa</button> { /* no translate(), pt-br only */ }
 						</div>
 					</div>
 				</div>
