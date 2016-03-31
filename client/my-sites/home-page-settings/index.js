@@ -4,6 +4,8 @@
 import React from 'react';
 import noop from 'lodash/noop';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 /**
  * Internal dependencies
@@ -13,14 +15,16 @@ import PostSelector from 'my-sites/post-selector';
 import FormFieldset from 'components/forms/form-fieldset';
 import FormLegend from 'components/forms/form-legend';
 import FormLabel from 'components/forms/form-label';
+import * as PreviewActions from 'state/preview/actions';
 
-export default React.createClass( {
+const HomePageSettings = React.createClass( {
 	propTypes: {
 		site: React.PropTypes.object.isRequired,
 		isPageOnFront: React.PropTypes.bool,
 		pageOnFrontId: React.PropTypes.number,
 		pageForPostsId: React.PropTypes.number,
 		onChange: React.PropTypes.func,
+		actions: React.PropTypes.object,
 	},
 
 	getDefaultProps() {
@@ -37,9 +41,12 @@ export default React.createClass( {
 		};
 	},
 
+	componentWillReceiveProps( nextProps ) {
+		this.setState( { isPageOnFront: nextProps.isPageOnFront, pageOnFrontId: nextProps.pageOnFrontId } );
+	},
+
 	createHomePage() {
-		// TODO: trigger an action that creates a new page and then triggers another
-		// action that sets customizations.homePage.pageOnFrontId
+		this.props.actions.createHomePage();
 	},
 
 	handleChangeIsPageOnFront( isPageOnFront ) {
@@ -122,3 +129,15 @@ export default React.createClass( {
 		);
 	}
 } );
+
+function mapStateToProps() {
+	return {};
+}
+
+function mapDispatchToProps( dispatch ) {
+	return {
+		actions: bindActionCreators( { createHomePage: PreviewActions.createHomePage }, dispatch )
+	};
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )( HomePageSettings );
