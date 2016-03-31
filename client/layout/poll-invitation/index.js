@@ -96,7 +96,6 @@ export default React.createClass( {
 					<h3 className="translator-invitation__title">Como está o nosso trabalho no Brasil?</h3> { /* no translate(), pt-br only */ }
 
 					<div className="translator-invitation__secondary-content">
-						<Gridicon icon="globe" size={ 48 } className="translator-invitation__content-icon" />
 						<p className="translator-invitation__intro">
 							Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.{ /* no translate(), pt-br only */ }
 						</p>
