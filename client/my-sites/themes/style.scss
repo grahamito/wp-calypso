@@ -222,6 +222,26 @@
 	}
 }
 
+.themes__sheet-download {
+
+	text-align: center;
+
+	.gridicon {
+		display: inline-block;
+		margin: -0.5em 0 -1.1em;
+		fill: #C8D7E1;
+	}
+
+	button {
+		display: inline-block;
+	}
+
+	p {
+		margin: 1.15em 0;
+	}
+
+}
+
 @include breakpoint( "<660px" ) {
 	.themes__sheet-columns {
 		flex-direction: column-reverse;
@@ -252,4 +272,31 @@
 	.themes__sheet-screenshot:before {
 		background: linear-gradient( to bottom, transparentize( white, 0.5 ), transparent );
 	}
+}
+
+@include breakpoint( ">1040px" ) {
+
+	.themes__sheet-download {
+		text-align: inherit;
+
+		.gridicon {
+			position: absolute;
+			transform: translateY( -50% );
+			margin: 0.3em 0 0 0;
+			float: left;
+			top: 50%;
+		}
+
+		button {
+			position: absolute;
+			transform: translateY( -50% );
+			top: 50%;
+			right: 26px;
+		}
+
+		p {
+			margin: 0 122px 0 71px;
+		}
+	}
+
 }

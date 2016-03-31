@@ -30,6 +30,7 @@ describe( 'reducer', () => {
 			themeDescription: 'the best theme ever invented',
 			themeDescriptionLong: 'the plato form of a theme',
 			themeSupportDocumentation: 'support comes from within',
+			themeDownload: 'mood.zip',
 			themeTaxonomies: {
 				features: [ {
 					term_id: null,
@@ -54,6 +55,7 @@ describe( 'reducer', () => {
 			description: 'the best theme ever invented',
 			descriptionLong: 'the plato form of a theme',
 			supportDocumentation: 'support comes from within',
+			download: 'mood.zip',
 			taxonomies: {
 				features: [ {
 					term_id: null,
