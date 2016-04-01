@@ -118,17 +118,19 @@ export default React.createClass( {
 	},
 
 	acceptButton: function() {
+		debug( 'accept button clicked' );
 		recordEvent( 'Clicked Accept Button' );
 		this.dismiss();
 	},
 
 	dismissButton: function() {
+		debug( 'dismiss button clicked' );
 		recordEvent( 'Clicked Dismiss Button' );
 		this.dismiss();
 	},
 
 	dismiss: function() {
-		debug( 'dismiss' );
+		debug( 'dismissed' );
 		this.setState( { disabled: true } );
 		recordEvent( 'dismissed' );
 		preferencesActions.set( _dismissedPreferenceKey, true );
