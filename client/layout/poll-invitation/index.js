@@ -59,6 +59,7 @@ export default React.createClass( {
 	},
 
 	render: function() {
+		var surveyUrl = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		if ( this.state.disabled ) {
 			debug( 'hiding: has been disabled' );
 			return null;
@@ -104,7 +105,7 @@ export default React.createClass( {
 							<Button	onClick={ this.dismissButton }>
 								{ 'Não, obrigado' /* no translate(), pt-br only */ }
 							</Button>
-							<Button	primary
+							<Button	primary	href={ surveyUrl } target="_blank"
 								onClick={ this.acceptButton }>
 								{ 'Responder a pesquisa' /* no translate(), pt-br only */ }
 							</Button>
@@ -117,9 +118,7 @@ export default React.createClass( {
 	},
 
 	acceptButton: function() {
-		const url = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		recordEvent( 'Clicked Accept Button' );
-		window.open( url );
 		this.dismiss();
 	},
 
