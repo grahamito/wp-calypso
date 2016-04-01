@@ -18,7 +18,7 @@ describe( 'StatsParser', () => {
 
 	before( () => {
 		statsParser = require( '../stats-parser' )();
-		data = require( './data' );
+		data = require( './fixtures/data' );
 	} );
 
 	describe( 'stat types', () => {

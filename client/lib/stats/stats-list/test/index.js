@@ -14,8 +14,8 @@ describe( 'StatList', () => {
 	let StatList, statsParser, data
 
 	useMockery( mockery => {
-		mockery.registerMock( 'lib/wp', require( './lib/wp' ) );
-		mockery.registerMock( 'lib/user', require( './lib/user' ) );
+		mockery.registerMock( 'lib/wp', require( './mocks/lib/wp' ) );
+		mockery.registerMock( 'lib/user', require( './mocks/lib/user' ) );
 	} );
 
 	useFakeDom();
@@ -23,7 +23,7 @@ describe( 'StatList', () => {
 	before( () => {
 		StatList = require( '..' );
 		statsParser = require( '../stats-parser' )();
-		data = require( './data' );
+		data = require( './fixtures/data' );
 	} );
 
 	describe( 'required options', () => {
