@@ -59,7 +59,7 @@ export default React.createClass( {
 	},
 
 	render: function() {
-		var surveyUrl = 'https://href.li/?http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
+		var surveyUrl = 'http://9372672.polldaddy.com/s/brazilian-portuguese-user-survey';
 		if ( this.state.disabled ) {
 			debug( 'hiding: has been disabled' );
 			return null;
