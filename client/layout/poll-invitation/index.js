@@ -16,6 +16,7 @@ import Gridicon from 'components/gridicon';
 import { tracks } from 'analytics';
 import config from 'config';
 import preferencesActions from 'lib/preferences/actions';
+import Button from 'components/button';
 
 /**
  * Module variables
@@ -100,14 +101,13 @@ export default React.createClass( {
 							Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.{ /* no translate(), pt-br only */ }
 						</p>
 						<div className="translator-invitation__actions">
-							<button
-								type="button"
-								className="button"
-								onClick={ this.dismissButton }>Não, obrigado</button> { /* no translate(), pt-br only */ }
-							<button
-								type="button"
-								className="button is-primary"
-								onClick={ this.acceptButton }>Responder a pesquisa</button> { /* no translate(), pt-br only */ }
+							<Button	onClick={ this.dismissButton }>
+								{ 'Não, obrigado' /* no translate(), pt-br only */ }
+							</Button>
+							<Button	primary
+								onClick={ this.acceptButton }>
+								{ 'Responder a pesquisa' /* no translate(), pt-br only */ }
+							</Button>
 						</div>
 					</div>
 				</div>
