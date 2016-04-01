@@ -280,7 +280,7 @@
 		},
 		"stats": {
 			"stats-list": {
-				"test": [ "index", "test-stats-parser" ]
+				"test": [ "index", "stats-parser" ]
 			}
 		},
 		"store": {
