@@ -102,11 +102,11 @@ export default React.createClass( {
 							Nós gostaríamos de lhe fazer 7 perguntas sobre o WordPress.com no Brasil.{ /* no translate(), pt-br only */ }
 						</p>
 						<div className="translator-invitation__actions">
-							<Button	onClick={ this.dismissButton }>
+							<Button	onClick={ this.trackRejectAndDismiss }>
 								{ 'Não, obrigado' /* no translate(), pt-br only */ }
 							</Button>
 							<Button	primary	href={ surveyUrl } target="_blank"
-								onClick={ this.acceptButton }>
+								onClick={ this.trackAcceptAndDismiss }>
 								{ 'Responder a pesquisa' /* no translate(), pt-br only */ }
 							</Button>
 						</div>
@@ -117,13 +117,13 @@ export default React.createClass( {
 		);
 	},
 
-	acceptButton: function() {
+	trackAcceptAndDismiss: function() {
 		debug( 'accept button clicked' );
 		recordEvent( 'Clicked Accept Button' );
 		this.dismiss();
 	},
 
-	dismissButton: function() {
+	trackRejectAndDismiss: function() {
 		debug( 'dismiss button clicked' );
 		recordEvent( 'Clicked Dismiss Button' );
 		this.dismiss();
